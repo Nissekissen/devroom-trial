@@ -1,0 +1,25 @@
+{
+  "name": "devroom-trial",
+  "version": "1.0.0",
+  "description": "Trial project for devroom",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nissekissen/devroom-trial.git"
+  },
+  "author": "Nissekissen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Nissekissen/devroom-trial/issues"
+  },
+  "homepage": "https://github.com/Nissekissen/devroom-trial#readme",
+  "dependencies": {
+    "discord.js": "^14.6.0",
+    "nodemon": "^2.0.20"
+  }
+}
