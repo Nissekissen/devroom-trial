@@ -3,8 +3,6 @@ const { ButtonBuilder, ButtonStyle } = require("discord.js");
 const database = require('../../db/database')
 const wait = require('node:timers/promises').setTimeout;
 
-const ticket_cancel = require('./ticket-cancel')
-
 module.exports = {
     builder: new ButtonBuilder()
         .setLabel('Close Ticket')

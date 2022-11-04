@@ -15,6 +15,9 @@
         "title": "Create a Ticket",
         "content": "Click on the button below to start a ticket."
     },
+    "ticket_create_message": {
+        "content": "Ticket created. See: <#%channel_id%>"
+    },
     "category_selection_embed": {
         "title": "Ticket - %target%",
         "content": "Select an option below to continue your ticket. Press **Cancel** to cancel your ticket."

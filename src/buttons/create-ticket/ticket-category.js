@@ -16,7 +16,7 @@ module.exports = {
             data.category = interaction.values[0];
             data.locked = false;
             const category_data = categories.options.filter(object => object.value === data.category)[0]
-            database.delete('ticket', 'tickets', { channelId: interaction.channel.id })
+            database.delete('ticket', 'tickets', { channelId: result.channelId })
             database.insertOne('ticket', 'tickets', data)
             const embed = new EmbedBuilder()
                 .setTitle(category_data.embed_title.replaceAll("%target_id%", interaction.member.user.id).replaceAll("%target%", interaction.member.user.username))

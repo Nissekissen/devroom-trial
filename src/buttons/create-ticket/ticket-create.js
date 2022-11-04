@@ -37,11 +37,12 @@ module.exports = {
             const data = {
                 userId: interaction.member.id,
                 channelId: channel.id,
-                locked: true
+                locked: true,
+                notified: false
             }
             database.insertOne('ticket', 'tickets', data)
 
-            await interaction.editReply({ content: `Ticket created. See <#${channel.id}>`, ephemeral: true  })
+            await interaction.editReply({ content: embed_data.ticket_create_message.content.replaceAll("%channel_id%", channel.id), ephemeral: true  })
         })
 
         
