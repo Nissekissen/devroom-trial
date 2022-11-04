@@ -3,6 +3,9 @@
 {
     "clientId": "CLIENT_ID_HERE", 
     "guildId": "SERVER_ID_HERE",  
-    "token": "BOT_TOKEN_HERE" 
+    "token": "BOT_TOKEN_HERE",
+    "mongodb": {
+        "url": "MONGO_DB_URL_HERE"
+    }
 }
   
