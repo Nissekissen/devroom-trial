@@ -44,7 +44,7 @@ module.exports = {
         MongoClient.connect(mongodb.url, (err, db) => {
             if (err) throw err;
             var dbo = db.db(dbName);
-            dbo.collection(collection).find(query).then(callback)
+            dbo.collection(collection).find(query).toArray().then(callback)
         });
     },
     async delete(dbName, collection, query) {

@@ -18,5 +18,13 @@
     "category_selection_embed": {
         "title": "Ticket - %target%",
         "content": "Select an option below to continue your ticket. Press **Cancel** to cancel your ticket."
+    },
+    "new_ticket_notification_embed": {
+        "title": "New Ticket",
+        "content": "<@%ticket_owner_id%> has created a new ticket in the category **%category%**. View and reply in the channel here: <#%channel_id%>"
+    },
+    "notify_support_confirm_embed": {
+        "title": "Support Notified",
+        "content": "Support has now been notified."
     }
 }

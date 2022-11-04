@@ -6,6 +6,7 @@
     "token": "BOT_TOKEN_HERE",
     "mongodb": {
         "url": "MONGO_DB_URL_HERE"
-    }
+    },
+    "color": "#3889eb"
 }
   

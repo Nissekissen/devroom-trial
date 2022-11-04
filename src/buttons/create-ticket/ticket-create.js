@@ -1,7 +1,10 @@
 const { SelectMenuBuilder, ButtonBuilder, ButtonStyle, ChannelType, EmbedBuilder, ActionRowBuilder } = require("discord.js");
 const database = require('../../db/database')
 const config = require('../../../config.json')
+
 const ticket_category = require('./ticket-category')
+const ticket_cancel = require('./ticket-cancel')
+
 
 const embed_data = require('../../../config/embeds.json')
 
@@ -12,6 +15,7 @@ module.exports = {
         .setStyle(ButtonStyle.Primary)
         .setCustomId(`ticket-create`),
     async execute(interaction) {
+        await interaction.deferReply({ ephemeral: true });
         const category_id = database.findOne('ticket', 'channel', { name: 'ticket-category' }, async (result) => {
             const category = interaction.guild.channels.cache.get(result.id);
             const channel = await category.children.create({
@@ -25,10 +29,19 @@ module.exports = {
                 .setColor(config.color)
             const selectMenuRow = new ActionRowBuilder()
                 .setComponents(ticket_category.builder)
+            const cancelRow = new ActionRowBuilder()
+                .setComponents(ticket_cancel.builder)
 
-            await channel.send({embeds: [embed], components: [selectMenuRow]});
+            await channel.send({embeds: [embed], components: [selectMenuRow, cancelRow]});
 
-            await interaction.reply({ content: `Ticket created. See <#${channel.id}>`, ephemeral: true  })
+            const data = {
+                userId: interaction.member.id,
+                channelId: channel.id,
+                locked: true
+            }
+            database.insertOne('ticket', 'tickets', data)
+
+            await interaction.editReply({ content: `Ticket created. See <#${channel.id}>`, ephemeral: true  })
         })
 
         

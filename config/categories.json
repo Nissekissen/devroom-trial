@@ -1,0 +1,16 @@
+{
+    "options": [
+        {
+            "label": "Punishment Appeal",
+            "value": "punishmentappeal",
+            "embed_title": "Punishment Appeal",
+            "embed_content": "Thank you for contacting support <@%target_id%>. \n\n The ticket was opened as a **Punishment Appeal** ticket. Please explain why you should excused of this punishment now as you wait for the support team to arrive."
+        },
+        {
+            "label": "Report a User",
+            "value": "reportuser",
+            "embed_title": "Report a User",
+            "embed_content": "Thank you for contacting support <@%target_id%>. \n\n The ticket was opened as a **Report User** ticket. Please mention the user to report and explain why this this user should be reported to the moderators. Please provide any proof you have."
+        }
+    ]
+}

@@ -21,12 +21,13 @@ module.exports = {
             })
         }
         let start_channel = interaction.guild.channels.cache.find(channel => channel.name === 'open-ticket');
+        let admin_channel;
         if (!start_channel) {
             start_channel = await category.children.create({
                 name: 'open-ticket',
                 type: ChannelType.GuildText
             })
-            let admin_channel = await category.children.create({
+            admin_channel = await category.children.create({
                 name: 'incoming-tickets',
                 type: ChannelType.GuildText,
                 permissionOverwrites: [
