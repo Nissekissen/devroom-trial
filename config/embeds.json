@@ -1,0 +1,22 @@
+{
+    "setup_command_embed": {
+        "title": "Ticket Setup",
+        "content": "Are you sure you want to setup the ticket system? This will create a **TICKETS category**, an **#open-ticket channel** and a **ticket-support** role."
+    },
+    "setup_confirm_already_setup_embed": {
+        "title": "Already Setup",
+        "content": "Server is already setup. You can dismiss this message."
+    },
+    "setup_confirm_complete_embed": {
+        "title": "✅ Setup Complete",
+        "content": "Server is now setup. You can dismiss this message."
+    },
+    "ticket_create_embed": {
+        "title": "Create a Ticket",
+        "content": "Click on the button below to start a ticket."
+    },
+    "category_selection_embed": {
+        "title": "Ticket - %target%",
+        "content": "Select an option below to continue your ticket. Press **Cancel** to cancel your ticket."
+    }
+}

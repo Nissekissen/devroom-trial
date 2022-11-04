@@ -17,7 +17,6 @@ module.exports = {
         } else if (interaction.type == InteractionType.MessageComponent) {
             const files = getFiles('./src/buttons')
             for await (const file of getFiles('./src/buttons')) {
-                console.log(file)
                 if (file.endsWith('.js') && interaction.customId.startsWith(file.split('\\')[file.split('\\').length-1].split('.')[0])) {
                     const buttonData = require('../../' + file.replaceAll(/\\/gi, '/'))
                     await buttonData.execute(interaction, interaction.customId)

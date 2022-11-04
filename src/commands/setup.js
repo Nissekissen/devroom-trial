@@ -1,6 +1,8 @@
 const { SlashCommandBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder, PermissionFlagsBits } = require("discord.js");
 const config = require('../../config.json')
 
+const embed_data = require('../../config/embeds.json')
+
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('setup')
@@ -13,8 +15,8 @@ module.exports = {
             .addComponents(buttonData.builder)
         
         const embed = new EmbedBuilder()
-            .setTitle('Ticket setup')
-            .setDescription('Are you sure you want to setup the ticket system? This will create a **TICKETS category**, an **#open-ticket channel** and a **ticket-support** role.')
+            .setTitle(embed_data.setup_command_embed.title)
+            .setDescription(embed_data.setup_command_embed.content)
             .setColor(config.color)
         await interaction.reply({ embeds: [embed], ephemeral: true, components: [row] })
     }

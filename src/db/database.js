@@ -3,7 +3,6 @@ const { mongodb } = require('../../config.json')
 
 module.exports = {
     async createDB(name) {
-        console.log(mongodb.url)
         MongoClient.connect(mongodb.url, (err, db) => {
             if (err) throw err;
             var dbo = db.db(name);
@@ -47,5 +46,12 @@ module.exports = {
             var dbo = db.db(dbName);
             dbo.collection(collection).find(query).then(callback)
         });
+    },
+    async delete(dbName, collection, query) {
+        MongoClient.connect(mongodb.url, (err, db) => {
+            if (err) throw err;
+            var dbo = db.db(dbName);
+            dbo.collection(collection).deleteOne(query);
+        })
     }
 }
