@@ -29,5 +29,13 @@
     "notify_support_confirm_embed": {
         "title": "Support Notified",
         "content": "Support has now been notified."
+    },
+    "cleartickets_embed": {
+        "title": "Clear Tickets",
+        "content": "Successfully cleared all tickets."
+    },
+    "reset_embed": {
+        "title": "Reset",
+        "content": "Successfully reset the bot."
     }
 }

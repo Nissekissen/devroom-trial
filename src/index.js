@@ -1,11 +1,6 @@
 /*
 TODO:
- - Add support role
- - Ping support role in admin channel
- - Ticket channel permissions
-
-
-
+ - Ticket create command
 */
 
 const { Client, Collection, GatewayIntentBits } = require('discord.js')

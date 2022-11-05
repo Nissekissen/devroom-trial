@@ -22,10 +22,15 @@ module.exports = {
         }
         let start_channel = interaction.guild.channels.cache.find(channel => channel.name === 'open-ticket');
         let admin_channel;
+        let role;
         if (!start_channel) {
             start_channel = await category.children.create({
                 name: 'open-ticket',
                 type: ChannelType.GuildText
+            })
+            role = await interaction.guild.roles.create({
+                name: 'Ticket Support',
+                color: config.color
             })
             admin_channel = await category.children.create({
                 name: 'incoming-tickets',
@@ -34,6 +39,10 @@ module.exports = {
                     {
                         id: interaction.guild.id,
                         deny: [PermissionsBitField.Flags.ViewChannel]
+                    },
+                    {
+                        id: role.id,
+                        allow: [PermissionsBitField.Flags.ViewChannel, PermissionsBitField.Flags.SendMessages]
                     }
                 ]
             })
@@ -53,9 +62,9 @@ module.exports = {
             .setDescription(embed_data.ticket_create_embed.content)
             .setColor(config.color)
         
+        setup(start_channel.id, category.id, admin_channel.id, role.id)
+        
         await start_channel.send({ embeds: [messageEmbed], components: [messageRow] })
-        setup(start_channel.id, category.id, admin_channel.id);
-
         const embed = new EmbedBuilder()
             .setTitle(embed_data.setup_confirm_complete_embed.title)
             .setColor(config.color)

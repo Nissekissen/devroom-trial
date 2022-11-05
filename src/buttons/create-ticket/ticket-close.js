@@ -10,11 +10,15 @@ module.exports = {
         .setCustomId('ticket-cancel')
         .setEmoji('⛔'),
     async execute(interaction) {
-        database.findOne('ticket', 'tickets', { channelId: interaction.channel.id }, async (result) => {
+        database.findOne('ticket', 'tickets', { channelId: interaction.channelId }, async (result) => {
             await interaction.reply("Deleting ticket...")
             await wait(2000);
             await interaction.channel.delete();
-            database.delete('ticket', 'tickets', { channelId: result.channelId });
+            try {
+                database.delete('ticket', 'tickets', { channelId: interaction.channelId });
+            } catch (error) {
+                console.error(error);
+            }
         })
     }
 }

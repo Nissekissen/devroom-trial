@@ -2,6 +2,8 @@ const { SelectMenuBuilder, EmbedBuilder, ActionRowBuilder } = require("discord.j
 const database = require('../../db/database')
 const config = require('../../../config.json')
 
+const wait = require('node:timers/promises').setTimeout;
+
 const ticket_close = require('./ticket-close')
 const categories = require('../../../config/categories.json')
 
@@ -12,12 +14,14 @@ module.exports = {
         .addOptions(categories.options),
     async execute(interaction) {
         database.findOne('ticket', 'tickets', { channelId: interaction.channel.id }, async (result) => {
+            console.log(result)
             let data = result
             data.category = interaction.values[0];
             data.locked = false;
             const category_data = categories.options.filter(object => object.value === data.category)[0]
-            database.delete('ticket', 'tickets', { channelId: result.channelId })
-            database.insertOne('ticket', 'tickets', data)
+            await database.delete('ticket', 'tickets', { channelId: result.channelId })
+            await wait(100);
+            await database.insertOne('ticket', 'tickets', data)
             const embed = new EmbedBuilder()
                 .setTitle(category_data.embed_title.replaceAll("%target_id%", interaction.member.user.id).replaceAll("%target%", interaction.member.user.username))
                 .setDescription(category_data.embed_content.replaceAll("%target_id%", interaction.member.user.id).replaceAll("%target%", interaction.member.user.username))
