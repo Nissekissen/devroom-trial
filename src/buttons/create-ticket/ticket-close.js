@@ -1,6 +1,5 @@
 const { ButtonBuilder, ButtonStyle } = require("discord.js");
-
-const database = require('../../db/database')
+const Ticket = require("../../db/models/Ticket");
 const wait = require('node:timers/promises').setTimeout;
 
 module.exports = {
@@ -10,15 +9,9 @@ module.exports = {
         .setCustomId('ticket-cancel')
         .setEmoji('⛔'),
     async execute(interaction) {
-        database.findOne('ticket', 'tickets', { channelId: interaction.channelId }, async (result) => {
-            await interaction.reply("Deleting ticket...")
-            await wait(2000);
-            await interaction.channel.delete();
-            try {
-                database.delete('ticket', 'tickets', { channelId: interaction.channelId });
-            } catch (error) {
-                console.error(error);
-            }
-        })
+        await interaction.reply("Deleting ticket...")
+        await wait(2000);
+        await Ticket.findOneAndDelete({ channelId: interaction.channelId })
+        await interaction.channel.delete();
     }
 }

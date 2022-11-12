@@ -1,5 +1,4 @@
 const { ButtonBuilder, ButtonStyle } = require("discord.js");
-const database = require("../../db/database");
 const ticketClose = require("./ticket-close");
 const wait = require('node:timers/promises').setTimeout;
 

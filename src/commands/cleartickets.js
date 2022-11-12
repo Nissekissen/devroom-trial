@@ -2,7 +2,7 @@ const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("disc
 
 const embeds = require('../../config/embeds.json');
 const config = require('../../config.json')
-const database = require("../db/database");
+const Ticket = require("../db/models/Ticket");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,18 +12,20 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         const embedData = embeds.cleartickets_embed
-        database.find('ticket', 'tickets', {}, async (result) => {
-            for (const data of result) {
-                await interaction.guild.channels.delete(data.channelId, 'Cleared Tickets')
-            }
-            await database.deleteMany('ticket', 'tickets', {})
 
-            const embed = new EmbedBuilder()
-                .setTitle(embedData.title)
-                .setDescription(embedData.content)
-                .setColor(config.color)
+        const tickets = Ticket.find({})
+
+        for (const data of tickets) {
+            await interaction.guild.channels.delete(data.channelId, 'Cleared Tickets')
+        }
+
+        await Ticket.deleteMany({})
+
+        const embed = new EmbedBuilder()
+            .setTitle(embedData.title)
+            .setDescription(embedData.content)
+            .setColor(config.color)
             
-            await interaction.reply({ embeds: [embed], ephemeral: true })
-        })
+        await interaction.reply({ embeds: [embed], ephemeral: true })
     }
 }

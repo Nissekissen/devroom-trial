@@ -1,9 +1,9 @@
 const { ChannelType, EmbedBuilder, ButtonBuilder, ButtonStyle, ActionRowBuilder, Embed, PermissionsBitField } = require("discord.js");
 const config = require('../../../config.json')
 const ticket_create = require('../create-ticket/ticket-create')
-const setup = require('../../db/setup')
 
-const embed_data = require('../../../config/embeds.json')
+const embed_data = require('../../../config/embeds.json');
+const Channel = require("../../db/models/Channel");
 
 module.exports = {
     builder: new ButtonBuilder()
@@ -62,8 +62,13 @@ module.exports = {
             .setDescription(embed_data.ticket_create_embed.content)
             .setColor(config.color)
         
-        setup(start_channel.id, category.id, admin_channel.id, role.id)
-        
+        Channel.create({
+            openTicket: start_channel.id,
+            ticketCategory: category.id,
+            adminChannel: admin_channel.id,
+            supportRole: role.id
+        })
+
         await start_channel.send({ embeds: [messageEmbed], components: [messageRow] })
         const embed = new EmbedBuilder()
             .setTitle(embed_data.setup_confirm_complete_embed.title)

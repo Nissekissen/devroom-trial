@@ -2,7 +2,8 @@ const { SlashCommandBuilder, PermissionFlagsBits, EmbedBuilder } = require("disc
 
 const embeds = require('../../config/embeds.json');
 const config = require('../../config.json')
-const database = require("../db/database");
+const Channel = require("../db/models/Channel");
+const Ticket = require("../db/models/Ticket");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -12,19 +13,20 @@ module.exports = {
         .setDMPermission(false),
     async execute(interaction) {
         const embedData = embeds.reset_embed;
-        database.findOne('ticket', 'channel', { name: 'support-role' }, async (role) => {
-            database.findOne('ticket', 'channel', { name: 'ticket-category' }, async (categoryData) => {
-                const category = interaction.guild.channels.cache.get(categoryData.id)
-                category.children.cache.forEach(async channel => await channel.delete())
-                await category.delete();
-            })
-            const embed = new EmbedBuilder()
-                .setTitle(embedData.title)
-                .setDescription(embedData.content)
-                .setColor(config.color)
-            
-            await database.dropDatabase('ticket')
-            await interaction.reply({ embeds: [embed], ephemeral: true })
-        })
+
+        const data = await Channel.findOne({})
+
+        const category = interaction.guild.channels.cache.get(data.ticketCategory)
+        category.children.cache.forEach(async channel => await channel.delete())
+        await category.delete();
+
+        await Ticket.deleteMany({})
+        await Channel.deleteMany({})
+
+        const embed = new EmbedBuilder()
+            .setTitle(embedData.title)
+            .setDescription(embedData.content)
+            .setColor(config.color)
+        await interaction.reply({ embeds: [embed], ephemeral: true })
     }
 }

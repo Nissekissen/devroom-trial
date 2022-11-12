@@ -4,8 +4,9 @@ TODO:
 */
 
 const { Client, Collection, GatewayIntentBits } = require('discord.js')
-const fs = require('fs')
-const { token } = require('../config.json')
+const fs = require('fs');
+const { default: mongoose } = require('mongoose');
+const { token, mongodb } = require('../config.json')
 const client = new Client({
     intents: [GatewayIntentBits.Guilds, GatewayIntentBits.MessageContent, GatewayIntentBits.GuildMessages]
 });
@@ -37,4 +38,4 @@ loadCommands();
 loadEvents();
 
 client.login(token);
-
+mongoose.connect(mongodb.url)
